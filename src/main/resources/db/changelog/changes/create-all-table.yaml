@@ -1,0 +1,74 @@
+databaseChangeLog:
+- changeSet:
+    id: 1
+    author: jisada
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: PROJPLANPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        tableName: project_plan
+
+- changeSet:
+    id: 2
+    author: jisada
+    changes:
+      - createTable:
+          columns:
+            - column:
+                autoIncrement: true
+                constraints:
+                  nullable: false
+                  primaryKey: true
+                  primaryKeyName: TASKPK
+                name: id
+                type: BIGINT
+            - column:
+                constraints:
+                  nullable: false
+                name: name
+                type: VARCHAR(255)
+            - column:
+                constraints:
+                  nullable: false
+                name: status
+                type: VARCHAR(255)
+            - column:
+                name: task_dependency
+                type: VARCHAR(255)
+            - column:
+                name: start_date
+                type: TIMESTAMP WITHOUT TIME ZONE
+            - column:
+                name: end_date
+                type: TIMESTAMP WITHOUT TIME ZONE
+            - column:
+                name: project_plan_id
+                type: BIGINT
+          tableName: task
+
+- changeSet:
+    id: 3
+    author: jisada
+    changes:
+      - addForeignKeyConstraint:
+          baseColumnNames: project_plan_id
+          baseTableName: task
+          constraintName: FKr7fwaw8hpjc6k6rulagwsokdg
+          deferrable: false
+          initiallyDeferred: false
+          referencedColumnNames: id
+          referencedTableName: project_plan
+          validate: true
+

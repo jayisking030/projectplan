@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - include:
+      file: /db/changelog/changes/create_all_table.sql
+  - include:
+      file: /db/changelog/changes/insert_all_table.sql
+
