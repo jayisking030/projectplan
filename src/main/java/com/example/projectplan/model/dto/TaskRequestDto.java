@@ -2,7 +2,7 @@ package com.example.projectplan.model.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.time.ZonedDateTime;
+
 import java.util.Date;
 
 @Data

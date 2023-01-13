@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -106,14 +106,28 @@ public class TaskServiceImpl implements TaskService {
 
                         LocalDate endDate =  startDate.plusDays(7);
 
-                        // Assign Start and End Dates for every task
-                        task = repository.save(Task.builder().name(taskRequestDto.getName())
-                                .status("Not Started")
-                                .start_date(startDate)
-                                .end_date(endDate)
-                                .projectPlan(projectPlan.get())
-                                .dependency(dependencyList)
-                                .build());
+                        if(isForUpdate){
+                            Task task1 = repository.findByName(taskRequestDto.getName());
+
+                            task = repository.save(Task.builder()
+                                    .id(task1.getId())
+                                    .name(taskRequestDto.getName())
+                                    .start_date(startDate)
+                                    .end_date(endDate)
+                                    .projectPlan(projectPlan.get())
+                                    .dependency(dependencyList)
+                                    .build());
+;                        }else{
+                            // Assign Start and End Dates for every task
+                            task = repository.save(Task.builder().name(taskRequestDto.getName())
+                                    .status("Not Started")
+                                    .start_date(startDate)
+                                    .end_date(endDate)
+                                    .projectPlan(projectPlan.get())
+                                    .dependency(dependencyList)
+                                    .build());
+                        }
+
                     }
                 }
             }
